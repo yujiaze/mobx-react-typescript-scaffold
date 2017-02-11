@@ -1,7 +1,7 @@
-import { TodoItem, ITodoItem } from './TodoItem'
+import { TodoItem, ITodoItem } from '../model/TodoItem'
 import * as React from 'react'
 import { observer } from 'mobx-react'
-import { ITodoList } from './TodoList'
+import { ITodoList } from '../store/TodoList'
 
 
 
@@ -20,12 +20,11 @@ const TodoItemView = observer(({todo}: { todo: ITodoItem }) => {
 
 
 @observer
-export class TodoView extends React.Component<{ todoList: ITodoList<ITodoItem> }, {}>{
+export class TodoListView extends React.Component<{ todoList: ITodoList<ITodoItem> }, {}>{
     public constructor(props: ITodoList<ITodoItem>) {
         super(props)
     }
     public render() {
-        this.props['todoList'];
         return (
             <div>
                 <ul>

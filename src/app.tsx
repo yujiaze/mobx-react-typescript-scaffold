@@ -1,7 +1,7 @@
-import { TodoView } from './TodoView'
+import { TodoListView } from './component/TodoListView'
 import * as ReactDOM from 'react-dom'
-import { TodoList } from './TodoList'
-import { TodoItem } from './TodoItem'
+import { TodoList } from './store/TodoList'
+import { TodoItem } from './model/TodoItem'
 const store = new TodoList()
 
 store.todos.push(
@@ -9,4 +9,4 @@ store.todos.push(
     new TodoItem("Write simpler code")
 )
 store.todos[0].finished = true
-ReactDOM.render(<TodoView todoList={store} />, document.getElementById('root'))
+ReactDOM.render(<TodoListView todoList={store} />, document.getElementById('root'))
