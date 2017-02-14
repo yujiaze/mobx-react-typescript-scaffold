@@ -1,12 +1,17 @@
 import { TodoListView } from './component/TodoListView'
-import * as ReactDOM from 'react-dom'
-import { TodoList } from './store/TodoList'
-import { TodoItem } from './model/TodoItem'
-const store = new TodoList()
+import { TodoHeaderView } from './component/TodoHeaderView'
+import { TodoFooterView } from './component/TodoFooterView'
+import { observer, inject } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 
-store.todos.push(
-    new TodoItem("Get Coffee"),
-    new TodoItem("Write simpler code")
+const App = observer(({stores}: { stores: any }) => {
+    console.log(stores);
+    return <div>
+        <TodoHeaderView todos={stores} />
+        <TodoListView todoList={stores} />
+        <TodoFooterView stores={stores} />
+        <DevTools />
+    </div>
+}
 )
-store.todos[0].finished = true
-ReactDOM.render(<TodoListView todoList={store} />, document.getElementById('root'))
+export default App

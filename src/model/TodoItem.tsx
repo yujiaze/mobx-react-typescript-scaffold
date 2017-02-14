@@ -9,10 +9,13 @@ export interface ITodoItem {
 }
 
 export class TodoItem {
-    public id: number = Math.random()
-    @observable public finished: boolean = false
-    constructor( @observable public title: string = '') {
-
+    public readonly id: number = TodoItem.generateId()
+    @observable 
+    public finished: boolean = false
+    @observable 
+    public title: string = ''
+    constructor(title) {
+        this.title = title
     }
     public switch() {
         this.finished = !this.finished
@@ -20,5 +23,8 @@ export class TodoItem {
     public edit(newTitle: string) {
         this.title = newTitle
     }
-
+    static _id = 0
+    static generateId(): number {
+        return TodoItem._id++
+    }
 }

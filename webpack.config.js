@@ -5,7 +5,7 @@ module.exports = {
         "webpack-dev-server/client?http://127.0.0.1:8080",
         // "webpack/hot/only-dev-server",
         // 这里是你的入口文件
-        "./src/app.tsx",
+        "./src/index.tsx",
     ],
     output: {
         path: './public/',

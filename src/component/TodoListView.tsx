@@ -1,7 +1,7 @@
 import { TodoItem, ITodoItem } from '../model/TodoItem'
 import * as React from 'react'
-import { observer } from 'mobx-react'
-import { ITodoList } from '../store/TodoList'
+import { observer, inject } from 'mobx-react'
+import { ITodoList, FILTER } from '../store/TodoList'
 
 
 
@@ -18,24 +18,34 @@ const TodoItemView = observer(({todo}: { todo: ITodoItem }) => {
 
 })
 
-
 @observer
-export class TodoListView extends React.Component<{ todoList: ITodoList<ITodoItem> }, {}>{
-    public constructor(props: ITodoList<ITodoItem>) {
+export class TodoListView extends React.Component<{ todoList: any }, {}>{
+    public constructor(props) {
         super(props)
     }
     public render() {
         return (
             <div>
                 <ul>
-                    {
-                        this.props.todoList.todos.map(todo => (
-                            <TodoItemView todo={todo} key={todo.id} />
-                        ))
-                    }
+                    {this.generateTodos()}
                 </ul>
-                Tasks Left : {this.props.todoList.unfinishedTodoCount}
             </div>
         )
+    }
+    private generateTodos() {
+        switch (this.props.todoList.filter) {
+            case FILTER.ALL:
+                return this.props.todoList.todos.map(todo =>
+                    <TodoItemView todo={todo} key={todo.id} />
+                )
+            case FILTER.ACTIVE:
+                return this.props.todoList.todos.filter(todo => todo.finished == false).map(todo =>
+                    <TodoItemView todo={todo} key={todo.id} />
+                )
+            case FILTER.COMPLETED:
+                return this.props.todoList.todos.filter(todo => todo.finished == true).map(todo =>
+                    <TodoItemView todo={todo} key={todo.id} />
+                )
+        }
     }
 }
